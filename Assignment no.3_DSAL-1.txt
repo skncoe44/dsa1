@@ -1,0 +1,220 @@
+
+
+#include<iostream>
+#define Max 6
+using namespace std;
+class Queue
+{
+ int Q[Max],Front,Rear;
+ public:
+ Queue()
+ {
+   Front=0;
+   Rear=-1;
+   for(int i=0;i<Max;i++)
+     Q[i]=-1;
+ }
+ int is_Queue_Full();
+ int is_Queue_Empty();
+ int EnQueue(int);
+ int DQueue(int&);
+ void Display();
+};
+   int Queue::is_Queue_Full()
+   {
+     if(Rear!=-1 && Front==(Rear+1)%Max)
+	      return 1;
+	 else
+          return 0;
+   }
+  int Queue::is_Queue_Empty()
+   {
+     if(Rear==-1)
+	    return 1;
+     else
+        return 0;
+   }
+  int Queue::EnQueue(int Data)
+   {
+     if(is_Queue_Full())
+        return false;
+    else
+        Rear=(Rear+1)%Max;
+        Q[Rear]=Data;
+        return true;
+    }
+  int Queue::DQueue(int& Data)
+   {
+      if(!is_Queue_Empty())
+     {
+      Data=Q[Front];
+      Q[Front]=-1;
+      Front=(Front+1)%Max;
+
+      if(Front==(Rear+1)%Max)
+         {
+            Front=0; Rear=-1;
+         }
+        return true;
+     }
+      return false;
+    }
+void Queue:: Display()
+  {
+     for(int i=0;i<Max;i++)
+       cout<<" "<<Q[i];
+   }
+
+int main()
+{
+    Queue CQ;
+    int E,Ch;
+    char Answer;
+ do
+    { cout<<"\n1:Insert an element\n2:Delete an element ";
+      cout<<"\nEnter your Choice:";
+      cin>>Ch;
+      switch(Ch)
+        {
+          case 1:
+                cout<<"Enter Data";
+				cin>>E;
+
+				if(CQ.EnQueue(E))
+                   cout<<"\n Entered Successfully";
+			 	else
+                   cout<<"\nQueue Full Can not insert an element";
+
+                break;
+
+          case 2:
+                if(CQ.DQueue(E))
+                    cout<<"\nDeleted Element "<<E;
+				else
+                    cout<<"Queue is Empty can't Remove element";
+
+                break;
+	 	       }
+	 	       cout<<"\n";
+	 	       CQ.Display();
+		       cout<<"\nDo You want to Continue(y/n).: ";
+		       cin>>Answer;
+
+    }while(Answer=='y');
+       cout<<"\nFinal Queue is: ";
+        CQ.Display();
+    return 1;
+}
+
+
+/* OUTPUT
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:1
+Enter Data3
+
+ Entered Successfully
+ 3 -1 -1 -1 -1 -1
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:1
+Enter Data5
+
+ Entered Successfully
+ 3 5 -1 -1 -1 -1
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:1
+Enter Data6
+
+ Entered Successfully
+ 3 5 6 -1 -1 -1
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:1
+Enter Data8
+
+ Entered Successfully
+ 3 5 6 8 -1 -1
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:1
+Enter Data9
+
+ Entered Successfully
+ 3 5 6 8 9 -1
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:2
+
+Deleted Element 3
+ -1 5 6 8 9 -1
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:2
+
+Deleted Element 5
+ -1 -1 6 8 9 -1
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:1
+Enter Data9
+
+ Entered Successfully
+ -1 -1 6 8 9 9
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:2
+
+Deleted Element 6
+ -1 -1 -1 8 9 9
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:2
+
+Deleted Element 8
+ -1 -1 -1 -1 9 9
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:1
+Enter Data7
+
+ Entered Successfully
+ 7 -1 -1 -1 9 9
+Do You want to Continue(y/n).: y
+
+1:Insert an element
+2:Delete an element
+ Enter your Choice:2
+
+Deleted Element 9
+ 7 -1 -1 -1 -1 9
+Do You want to Continue(y/n).: n
+
+Final Queue is:  7 -1 -1 -1 -1 9
+Process returned 1 (0x1)   execution time : 66.280 s
+Press any key to continue.
+
+*/
+
